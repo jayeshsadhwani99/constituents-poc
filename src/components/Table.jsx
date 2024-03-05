@@ -3,7 +3,7 @@ import { FormContext } from "../contexts/FormContext";
 import Element from "./Element";
 
 function Table() {
-  const { formData, submitForm } = useContext(FormContext);
+  const { formData, submitForm, loading } = useContext(FormContext);
 
   return (
     <>
@@ -29,7 +29,7 @@ function Table() {
           <button
             onClick={submitForm}
             className="w-1/2 lg:w-1/5 bg-blue-400 hover:bg-white text-white hover:text-blue-400 transition-all border-2 border-blue-400 p-2 rounded m-auto">
-            Submit
+            {loading ? "Loading..." : "Submit"}
           </button>
         </div>
       )}
