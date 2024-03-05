@@ -29,7 +29,7 @@ export default function FormProvider({ children }) {
     const scriptUrl =
       "https://script.google.com/macros/s/AKfycbwgo0H37RXD0fSnXKhYplrp4NNgkj5hL9vPFR2aHMt-DM_Kwpqajm6tDB3VMRU14RsE/exec";
     try {
-      const response = await fetch(scriptUrl, {
+      await fetch(scriptUrl, {
         method: "POST",
         mode: "no-cors", // This might be needed to avoid CORS issues
         body: JSON.stringify(formData),

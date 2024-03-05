@@ -15,6 +15,7 @@ function Form() {
     emotion: emotions[0].value,
     media: null,
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     let value = e.target.value;
@@ -31,6 +32,22 @@ function Form() {
   };
 
   const validate = () => {
+    let e = "";
+    if (!data.sentence.trim()) {
+      e = "Please enter the sentence";
+      return false;
+    }
+
+    if (!data.emotion) {
+      e = "Please select an emotion";
+      return false;
+    }
+
+    if (!data.media) {
+      e = "Please select a file";
+      return false;
+    }
+    setError(e);
     return true;
   };
 
@@ -96,6 +113,12 @@ function Form() {
             type="file"
           />
         </div>
+
+        {!error && (
+          <p className="bg-red-500 text-white rounded w-full lg:w-1/2 p-4">
+            There was an error: {error}
+          </p>
+        )}
 
         <div className="flex gap-4">
           <button
