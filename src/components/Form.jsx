@@ -6,7 +6,7 @@ function Form() {
   const { addFormData } = useContext(FormContext);
   const [data, setData] = useState({
     sentence: "",
-    emotion: "happy",
+    emotion: emotions[0].value,
     media: null,
   });
 
@@ -31,7 +31,7 @@ function Form() {
   const resetForm = () => {
     setData({
       sentence: "",
-      emotion: "happy",
+      emotion: emotions[0].value,
       media: null,
     });
   };
@@ -63,10 +63,13 @@ function Form() {
             id="row5_emotion"
             className="p-2 rounded"
             name="emotion"
-            value={data.sentence}
+            value={data?.emotion?.value}
             onChange={handleChange}>
             {emotions.map((e, i) => (
-              <option key={i} value={e.value}>
+              <option
+                key={i}
+                value={e.value}
+                selected={e.value === data.emotion}>
                 {e.label}
               </option>
             ))}

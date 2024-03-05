@@ -1,22 +1,42 @@
 export const emotions = [
   {
-    label: "Happy",
-    value: "happy",
+    label: "Amazement",
+    value: "amazement",
   },
   {
-    label: "Sad",
-    value: "sad",
+    label: "Anger",
+    value: "anger",
   },
   {
-    label: "Angry",
-    value: "angry",
+    label: "Cheekiness",
+    value: "cheekiness",
   },
   {
-    label: "Surprised",
-    value: "surprised",
+    label: "Disgust",
+    value: "disgust",
   },
   {
-    label: "Neutral",
-    value: "neutral",
+    label: "Fear",
+    value: "fear",
+  },
+  {
+    label: "Grief",
+    value: "grief",
+  },
+  {
+    label: "Joy",
+    value: "joy",
+  },
+  {
+    label: "Out of breath",
+    value: "outofbreath",
+  },
+  {
+    label: "Pain",
+    value: "pain",
+  },
+  {
+    label: "Sadness",
+    value: "sadness",
   },
 ];

@@ -4,6 +4,7 @@ export const FormContext = createContext();
 
 export default function FormProvider({ children }) {
   const [formData, setFormData] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const addFormData = (data) => {
     setFormData([...formData, data]);
