@@ -114,7 +114,7 @@ function Form() {
           />
         </div>
 
-        {!error && (
+        {error && (
           <p className="bg-red-500 text-white rounded w-full lg:w-1/2 p-4">
             There was an error: {error}
           </p>
