@@ -28,11 +28,21 @@ function Form() {
     return true;
   };
 
+  const resetForm = () => {
+    setData({
+      sentence: "",
+      emotion: "happy",
+      media: null,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     addFormData(data);
+
+    resetForm();
   };
 
   return (
