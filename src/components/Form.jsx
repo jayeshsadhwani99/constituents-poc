@@ -1,9 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { emotions } from "../utils/emotions";
 import { FormContext } from "../contexts/FormContext";
 
 function Form() {
-  const { addFormData } = useContext(FormContext);
+  const {
+    addFormData,
+    selectedIndex,
+    formData,
+    editFormData,
+    setSelectedIndex,
+  } = useContext(FormContext);
   const [data, setData] = useState({
     sentence: "",
     emotion: emotions[0].value,
@@ -34,16 +40,25 @@ function Form() {
       emotion: emotions[0].value,
       media: null,
     });
+    setSelectedIndex(null);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    addFormData(data);
+    if (selectedIndex != null) {
+      editFormData(data);
+    } else {
+      addFormData(data);
+    }
 
     resetForm();
   };
+
+  useEffect(() => {
+    if (selectedIndex != null) setData({ ...formData[selectedIndex] });
+  }, [selectedIndex]);
 
   return (
     <main className="mt-20">
@@ -63,13 +78,13 @@ function Form() {
             id="row5_emotion"
             className="p-2 rounded"
             name="emotion"
-            value={data?.emotion?.value}
+            defaultValue={data?.emotion}
             onChange={handleChange}>
             {emotions.map((e, i) => (
               <option
                 key={i}
                 value={e.value}
-                selected={e.value === data.emotion}>
+                selected={data.emotion === e.value}>
                 {e.label}
               </option>
             ))}
@@ -82,11 +97,20 @@ function Form() {
           />
         </div>
 
-        <button
-          onClick={handleSubmit}
-          className="bg-blue-400 hover:bg-white text-white hover:text-blue-400 transition-all border-2 border-blue-400 p-2 rounded">
-          Add
-        </button>
+        <div className="flex gap-4">
+          <button
+            className="bg-blue-400 hover:bg-white text-white hover:text-blue-400 transition-all border-2 border-blue-400 p-2 rounded"
+            onClick={resetForm}
+            type="button">
+            Reset
+          </button>
+
+          <button
+            onClick={handleSubmit}
+            className="bg-green-400 hover:bg-white text-white hover:text-green-400 transition-all border-2 border-green-400 p-2 rounded">
+            {selectedIndex != null ? "Edit" : "Add"}
+          </button>
+        </div>
       </form>
     </main>
   );

@@ -10,6 +10,12 @@ export default function FormProvider({ children }) {
     setFormData([...formData, data]);
   };
 
+  const editFormData = (data) => {
+    const temp = structuredClone(formData);
+    temp[selectedIndex] = data;
+    setFormData(temp);
+  };
+
   const submitForm = () => {
     console.log(formData);
   };
@@ -24,9 +30,12 @@ export default function FormProvider({ children }) {
     <FormContext.Provider
       value={{
         formData,
+        selectedIndex,
         addFormData,
+        editFormData,
         submitForm,
         popElement,
+        setSelectedIndex,
       }}>
       {children}
     </FormContext.Provider>
