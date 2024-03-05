@@ -33,22 +33,17 @@ function Form() {
 
   const validate = () => {
     let e = "";
-    if (!data.sentence.trim()) {
-      e = "Please enter the sentence";
-      return false;
-    }
-
-    if (!data.emotion) {
-      e = "Please select an emotion";
-      return false;
-    }
-
     if (!data.media) {
       e = "Please select a file";
-      return false;
+    }
+    if (!data.emotion) {
+      e = "Please select an emotion";
+    }
+    if (!data.sentence.trim()) {
+      e = "Please enter the sentence";
     }
     setError(e);
-    return true;
+    return e === "";
   };
 
   const resetForm = () => {

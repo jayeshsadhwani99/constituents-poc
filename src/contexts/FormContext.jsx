@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
 import { toast } from "react-toastify";
+import { storage } from "../firebaseConfig";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const FormContext = createContext();
 
@@ -23,16 +25,48 @@ export default function FormProvider({ children }) {
     setSelectedIndex(null);
   };
 
+  const handleFiles = async () => {
+    // Map through formData to handle file uploads individually
+    const updatedFormData = await Promise.all(
+      formData.map(async (data) => {
+        // If there's no media, return the data as is
+        if (!data.media) return data;
+
+        // Define the storage reference
+        const storageRef = ref(storage, `media/${data.media.name}`);
+
+        // Upload the file
+        const uploadResult = await uploadBytes(storageRef, data.media, {
+          contentType: data.media.type,
+        });
+
+        // Get the download URL
+        const mediaUrl = await getDownloadURL(uploadResult.ref);
+
+        // Return the updated data object including the mediaUrl
+        return {
+          ...data,
+          media: mediaUrl, // Add the mediaUrl to the data object
+        };
+      }),
+    );
+
+    // Update the formData state with the updated entries
+    return updatedFormData;
+  };
+
   const submitForm = async () => {
     if (loading) return;
     setLoading(true);
     const scriptUrl =
       "https://script.google.com/macros/s/AKfycbwgo0H37RXD0fSnXKhYplrp4NNgkj5hL9vPFR2aHMt-DM_Kwpqajm6tDB3VMRU14RsE/exec";
     try {
+      const data = await handleFiles();
+
       await fetch(scriptUrl, {
         method: "POST",
         mode: "no-cors", // This might be needed to avoid CORS issues
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
