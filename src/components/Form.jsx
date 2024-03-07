@@ -33,9 +33,9 @@ function Form() {
 
   const validate = () => {
     let e = "";
-    if (!data.media) {
-      e = "Please select a file";
-    }
+    // if (!data.media) {
+    //   e = "Please select a file";
+    // }
     if (!data.emotion) {
       e = "Please select an emotion";
     }
