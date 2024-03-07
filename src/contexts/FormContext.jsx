@@ -59,7 +59,7 @@ export default function FormProvider({ children }) {
     if (loading) return;
     setLoading(true);
     const scriptUrl =
-      "https://script.google.com/macros/s/AKfycbwgo0H37RXD0fSnXKhYplrp4NNgkj5hL9vPFR2aHMt-DM_Kwpqajm6tDB3VMRU14RsE/exec";
+      "https://script.google.com/macros/s/AKfycbyELyrshiLO6FXodDPOxKX60kPu3UxwgAjHS9Jex_oCRdAf30RVJdTQhVOY5sCkn6Nu/exec";
     try {
       const data = await handleFiles();
 
