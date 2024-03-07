@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import { storage } from "../firebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { APPSCRIPT_URL } from "../constants";
 
 export const FormContext = createContext();
 
@@ -58,8 +59,7 @@ export default function FormProvider({ children }) {
   const submitForm = async () => {
     if (loading) return;
     setLoading(true);
-    const scriptUrl =
-      "https://script.google.com/macros/s/AKfycbyELyrshiLO6FXodDPOxKX60kPu3UxwgAjHS9Jex_oCRdAf30RVJdTQhVOY5sCkn6Nu/exec";
+    const scriptUrl = APPSCRIPT_URL;
     try {
       const data = await handleFiles();
 
